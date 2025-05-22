@@ -33,5 +33,5 @@
         <li>MongoDB</li>
     </ul>
     <h2>📄 Licença</h2>
-    <p>GNU General Public License v3.0</p>
+    <p><a href="./LICENSE">GNU General Public License v3.0</a></p>
 </body>
