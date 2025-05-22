@@ -32,4 +32,6 @@
         <li>Express</li>
         <li>MongoDB</li>
     </ul>
+    <h2>📄 Licença</h2>
+    <p>GNU General Public License v3.0</p>
 </body>
