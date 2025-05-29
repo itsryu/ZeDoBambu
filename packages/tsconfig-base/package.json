@@ -1,0 +1,9 @@
+{
+    "name": "@zedobambu/tsconfig-base",
+    "version": "0.1.0",
+    "private": true,
+    "license": "ISC",
+    "files": [
+      "tsconfig.base.json"
+    ]
+  }

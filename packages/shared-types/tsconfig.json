@@ -1,0 +1,16 @@
+{
+  "extends": "@zedobambu/tsconfig-base/tsconfig.base.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "outDir": "dist",
+    "noEmit": false,
+    "declaration": true,
+    "declarationMap": true,
+    "module": "node16",
+    "moduleResolution": "node16",
+    "target": "es2022",
+    "esModuleInterop": true
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist"]
+}

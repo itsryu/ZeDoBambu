@@ -1,0 +1,35 @@
+{
+  "name": "@zedobambu/api",
+  "version": "0.1.0",
+  "private": true,
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "clean": "rm -rf dist",
+
+    "dev": "ts-node-dev -r tsconfig-paths/register --respawn --transpile-only --exit-child src/index.ts",
+    "start": "node dist/index.js",
+    "lint": "eslint . --config ../../packages/eslint-config-custom/index.js",
+    "lint:fix": "eslint . --fix --config ../../packages/eslint-config-custom/index.js",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "mongoose": "^8.4.4",
+    "zod": "^3.23.8",
+    "@zedobambu/shared-types": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21",
+    "@types/mongoose": "^5.11.97",
+    "@types/node": "^20.14.9",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.5.2",
+    "tsconfig-paths": "^4.2.0",
+    "@zedobambu/eslint-config-custom": "workspace:*",
+    "@zedobambu/tsconfig-base": "workspace:*"
+  }
+}
