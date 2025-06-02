@@ -22,7 +22,7 @@
     <ul>
         <li>Node.js 18+</li>
         <li>MongoDB</li>
-        <li>Yarn ou NPM</li>
+        <li>PNPM</li>
     </ul>
     <h2>🛠️ Tecnologias</h2>
     <ul>

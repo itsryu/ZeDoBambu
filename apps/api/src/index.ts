@@ -1,4 +1,5 @@
 import 'dotenv/config';
+import '@/config/firebaseAdmin';
 import App from './app';
 import { Logger } from './utils/logger';
 
@@ -8,13 +9,13 @@ const startServer = async () => {
     app.listen();
 
     const signals = ['SIGINT', 'SIGTERM'];
-
     signals.forEach((signal) => {
       process.on(signal, async () => {
         Logger.info(`Received ${signal}, shutting down gracefully...`, 'Process');
         process.exit(0);
       });
     });
+
   } catch (error) {
     const err = error as Error;
     Logger.error(`Failed to start server: ${err.message}`, 'ServerStartup');

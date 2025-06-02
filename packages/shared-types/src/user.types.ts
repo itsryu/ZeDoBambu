@@ -1,8 +1,10 @@
+export type IUserRole = 'customer' | 'admin';
+
 export interface IUser {
     id: string;
     name: string;
     email: string;
-    role: 'customer' | 'admin';
+    role: IUserRole;
     createdAt: Date;
     updatedAt: Date;
 }

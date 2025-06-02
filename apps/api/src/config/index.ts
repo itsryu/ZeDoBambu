@@ -12,11 +12,9 @@ interface IAppConfig {
   nodeEnv: 'development' | 'production';
   localUrl: string;
   domainUrl: string;
-  mongoUri: string;
-  jwt: {
-    secret: string;
-    expiresIn: string;
-  };
+  firebaseProjectId: string;
+  firebaseClientEmail: string;
+  firebasePrivateKey: string;
 }
 
 const config: IAppConfig = {
@@ -24,22 +22,14 @@ const config: IAppConfig = {
   nodeEnv: process.env.NODE_ENV || 'development',
   localUrl: process.env.LOCAL_URL || 'http://localhost',
   domainUrl: process.env.DOMAIN_URL || '',
-  mongoUri: process.env.MONGO_URI || '',
-  jwt: {
-    secret: process.env.JWT_SECRET || 'default_secret_key',
-    expiresIn: process.env.JWT_EXPIRES_IN || '1h',
-  },
+  firebaseProjectId: process.env.FIREBASE_PROJECT_ID || '',
+  firebaseClientEmail: process.env.FIREBASE_CLIENT_EMAIL || '',
+  firebasePrivateKey: process.env.FIREBASE_PRIVATE_KEY || '',
 };
 
-
-if (!config.mongoUri) {
-  console.error('FATAL ERROR: MONGO_URI is not defined.');
+if (!config.firebaseProjectId || !config.firebaseClientEmail || !config.firebasePrivateKey) {
+  console.error('FATAL ERROR: Firebase Admin SDK credentials are not defined in environment variables.');
   process.exit(1);
 }
-
-if (config.nodeEnv === 'production' && config.jwt.secret === 'default_secret_key') {
-    console.warn('WARNING: JWT_SECRET is using the default value in production.');
-}
-
 
 export default config;
