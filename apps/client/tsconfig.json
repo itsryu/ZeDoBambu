@@ -1,43 +1,20 @@
 {
   "extends": "@zedobambu/tsconfig-base/tsconfig.base.json",
   "compilerOptions": {
-    "target": "ESNext",
     "useDefineForClassFields": true,
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
-    "outDir": "dist",
-    "allowJs": false,
-    "skipLibCheck": true,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "strict": true,
-    "forceConsistentCasingInFileNames": true,
-    "module": "ESNext",
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "noEmit": true,
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "jsx": "react-jsx",
+    "noEmit": true,
+    "isolatedModules": true,
     "paths": {
-      "@/*": [
-        "./src/*"
-      ]
+      "@/*": ["./src/*"]
     },
-    "types": [
-      "vite/client",
-      "node"
-    ]
+    "types": ["vite/client"]
   },
-  "include": [
-    "src"
-  ],
-  "exclude": ["node_modules", "dist"],
+  "include": ["src"],
   "references": [
-    {
-      "path": "./tsconfig.node.json"
-    }
+    { "path": "./tsconfig.node.json" },
+    { "path": "../../packages/shared-types" },
+    { "path": "../../packages/shared-validation" }
   ]
 }

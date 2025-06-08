@@ -2,17 +2,9 @@
   "extends": "@zedobambu/tsconfig-base/tsconfig.base.json",
   "compilerOptions": {
     "composite": true,
-    "skipLibCheck": true,
     "module": "ESNext",
     "moduleResolution": "bundler",
-    "allowSyntheticDefaultImports": true,
-    "strict": true,
-    "noEmit": false
+    "types": ["node"]
   },
-  "include": [
-    "vite.config.ts",
-    "tailwind.config.js",
-    "postcss.config.js"
-  ],
-  "exclude": ["node_modules", "dist"]
+  "include": ["vite.config.ts", "tailwind.config.js", "postcss.config.js"]
 }

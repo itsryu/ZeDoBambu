@@ -1,8 +1,8 @@
 import React, { useState, useEffect, Fragment } from 'react';
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useQuery, useMutation, useQueryClient, keepPreviousData } from '@tanstack/react-query';
 import apiClient from '@/lib/axios';
-import { IUser, IAdminUpdateUserDto } from '@zedobambu/shared-types';
-import { useForm, Controller, SubmitHandler } from 'react-hook-form';
+import type { IUser, IAdminUpdateUserDto } from '@zedobambu/shared-types';
+import { useForm, Controller, type SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { adminUpdateUserSchema } from '@zedobambu/shared-validation';
 import { Trash2, Edit, Loader2, AlertTriangle, MoreVertical, Search, User as UserIcon, Phone, MapPin, Building, Home, Landmark, CheckCircle, XCircle } from 'lucide-react';
@@ -65,7 +65,7 @@ const UserManagement: React.FC = () => {
   const { data: users, isLoading, isError } = useQuery<IUser[], Error>({
     queryKey: ['users', debouncedSearchTerm],
     queryFn: () => fetchUsers(debouncedSearchTerm),
-    keepPreviousData: true,
+    placeholderData: keepPreviousData,
   });
 
   const { register, handleSubmit, reset, setValue, control, formState: { errors } } = useForm<IAdminUpdateUserDto>({

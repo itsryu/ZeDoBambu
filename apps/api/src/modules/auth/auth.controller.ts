@@ -1,7 +1,7 @@
-import { Request, Response } from 'express';
+import type { Request, Response } from 'express';
 import { ApiResponse } from '@/utils/apiResponse';
 import { firebaseAdminAuth, firebaseAdminDb } from '@/config/firebaseAdmin';
-import { IUser } from '@zedobambu/shared-types';
+import type { IUser } from '@zedobambu/shared-types';
 import { Logger } from '@/utils/logger';
 import { Timestamp } from 'firebase-admin/firestore';
 

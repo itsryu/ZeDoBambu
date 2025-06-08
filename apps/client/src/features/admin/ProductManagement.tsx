@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import apiClient from '@/lib/axios';
-import { IProduct, ICreateProductDto, IUpdateProductDto } from '@zedobambu/shared-types';
+import type { IProduct, ICreateProductDto, IUpdateProductDto } from '@zedobambu/shared-types';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { createProductSchema, updateProductSchema } from '@zedobambu/shared-validation';

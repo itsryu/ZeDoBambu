@@ -1,6 +1,7 @@
-import { Request, Response } from 'express';
+import type { Request, Response } from 'express';
 import { ApiResponse } from '@/utils/apiResponse';
-import { HttpStatus, ICreateProductDto } from '@zedobambu/shared-types';
+import { HttpStatus } from '@zedobambu/shared-types';
+import type { ICreateProductDto } from '@zedobambu/shared-types';
 import { ProductService } from './product.service';
 import { createProductSchema, updateProductSchema } from '@zedobambu/shared-validation';
 

@@ -1,4 +1,4 @@
-import { IProduct } from '@zedobambu/shared-types';
+import type { IProduct } from '@zedobambu/shared-types';
 import apiClient from '@/lib/axios';
 import { useQuery } from '@tanstack/react-query';
 import { AlertTriangle, ChefHat } from 'lucide-react';

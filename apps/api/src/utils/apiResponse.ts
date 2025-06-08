@@ -1,5 +1,6 @@
-import { Response } from 'express';
-import { IApiResponse, HttpStatus } from '@zedobambu/shared-types';
+import type { Response } from 'express';
+import { HttpStatus } from '@zedobambu/shared-types';
+import type { IApiResponse } from '@zedobambu/shared-types';
 
 export class ApiResponse<T = unknown> {
   private statusCode: HttpStatus;

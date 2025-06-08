@@ -1,8 +1,8 @@
-import { Request, Response } from 'express';
+import type { Request, Response } from 'express';
 import { ApiResponse } from '@/utils/apiResponse';
 import { UserService } from './user.service';
 import { adminUpdateUserSchema, updateUserProfileSchema } from '@zedobambu/shared-validation';
-import { IUpdateUserProfileDto } from '@zedobambu/shared-types';
+import type { IUpdateUserProfileDto } from '@zedobambu/shared-types';
 
 
 export class UserController {

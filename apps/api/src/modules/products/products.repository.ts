@@ -1,6 +1,6 @@
 import { firebaseAdminDb } from '@/config/firebaseAdmin';
-import { IProduct, ICreateProductDto, IUpdateProductDto } from '@zedobambu/shared-types';
-import { Timestamp, DocumentData } from 'firebase-admin/firestore';
+import type { IProduct, ICreateProductDto, IUpdateProductDto } from '@zedobambu/shared-types';
+import { Timestamp, type DocumentData } from 'firebase-admin/firestore';
 
 export class ProductRepository {
   private collection = firebaseAdminDb.collection('products');

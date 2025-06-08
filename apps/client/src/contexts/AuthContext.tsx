@@ -1,15 +1,15 @@
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import React, { createContext, useContext, useState, useEffect, type ReactNode } from 'react';
 import {
-  User as FirebaseUser,
-  onAuthStateChanged,
-  signOut as firebaseSignOut,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signInWithPopup,
+  onAuthStateChanged,
+  signOut as firebaseSignOut,
+  type User as FirebaseUser,
 } from 'firebase/auth';
 import { auth, googleProvider } from '@/lib/firebase';
 import apiClient from '@/lib/axios';
-import { IUser } from '@zedobambu/shared-types';
+import type { IUser } from '@zedobambu/shared-types';
 import { useNavigate } from 'react-router-dom';
 
 const getFirebaseAuthErrorMessage = (errorCode: string): string => {
@@ -36,7 +36,7 @@ interface AuthContextType {
   error: string | null;
   signUp: (email: string, password: string) => Promise<void>;
   signIn: (email: string, password: string) => Promise<void>;
-  signInWithGoogle: () => Promise<void>; // NOVO
+  signInWithGoogle: () => Promise<void>;
   signOut: () => Promise<void>;
 }
 

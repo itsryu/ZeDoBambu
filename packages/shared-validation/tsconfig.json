@@ -1,17 +1,13 @@
 {
   "extends": "@zedobambu/tsconfig-base/tsconfig.base.json",
   "compilerOptions": {
-    "baseUrl": ".",
-    "rootDir": "src",
-    "outDir": "dist",
-    "noEmit": false,
+    "outDir": "./dist",
+    "rootDir": "./src",
     "declaration": true,
     "declarationMap": true,
-    "module": "ESNext",
-    "moduleResolution": "bundler",
-    "target": "es2022",
-    "esModuleInterop": true
+    "composite": true,
+    "noEmit": false
   },
-  "include": ["src/**/*"],
+  "include": ["src"],
   "exclude": ["node_modules", "dist"]
 }

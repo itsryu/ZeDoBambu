@@ -1,7 +1,7 @@
-import { Request, Response, NextFunction } from 'express';
+import type { Request, Response, NextFunction } from 'express';
 import { firebaseAdminAuth, firebaseAdminDb } from '@/config/firebaseAdmin';
 import { ApiResponse } from '@/utils/apiResponse';
-import { IUser } from '@zedobambu/shared-types';
+import type { IUser } from '@zedobambu/shared-types';
 import { Logger } from '@/utils/logger';
 
 declare global {

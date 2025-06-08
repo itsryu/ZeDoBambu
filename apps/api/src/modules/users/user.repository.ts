@@ -1,7 +1,7 @@
 import { firebaseAdminAuth, firebaseAdminDb } from '@/config/firebaseAdmin';
-import { IUser, IUpdateUserProfileDto, IAdminUpdateUserDto } from '@zedobambu/shared-types';
+import type { IUser, IUpdateUserProfileDto, IAdminUpdateUserDto } from '@zedobambu/shared-types';
 import { Timestamp } from 'firebase-admin/firestore';
-import { UserRecord } from 'firebase-admin/auth';
+import type { UserRecord } from 'firebase-admin/auth';
 
 export class UserRepository {
     private collection = firebaseAdminDb.collection('users');

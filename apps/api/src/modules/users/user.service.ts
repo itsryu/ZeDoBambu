@@ -1,4 +1,4 @@
-import { IUpdateUserProfileDto, IUser, IAdminUpdateUserDto } from '@zedobambu/shared-types';
+import type { IUpdateUserProfileDto, IUser, IAdminUpdateUserDto } from '@zedobambu/shared-types';
 import { UserRepository } from './user.repository';
 
 export class UserService {

@@ -1,5 +1,5 @@
-import { ICreateProductDto, IUpdateProductDto, IProduct } from '@zedobambu/shared-types';
-import { ProductRepository } from './products.repository'
+import type { ICreateProductDto, IUpdateProductDto, IProduct } from '@zedobambu/shared-types';
+import { ProductRepository } from './products.repository';
 
 export class ProductService {
   private repository: ProductRepository;
