@@ -1,5 +1,5 @@
 {
-    "$schema": "https://turborepo.org/schema.json",
+    "$schema": "https://turbo.build/schema.json",
     "globalDependencies": [
         "**/.env.*local"
     ],
@@ -8,12 +8,7 @@
             "dependsOn": [
                 "^build"
             ],
-            "outputs": [
-                ".next/**",
-                "!.next/cache/**",
-                "dist/**",
-                ".output/**"
-            ]
+            "outputs": ["dist/**"]
         },
         "lint": {
             "dependsOn": [
@@ -31,11 +26,21 @@
             ]
         },
         "dev": {
+            "dependsOn": [
+                "^build"
+            ],
             "cache": false,
             "persistent": true
         },
         "clean": {
             "cache": false
+        },
+        "start": {
+            "dependsOn": [
+                "^build"
+            ],
+            "cache": false,
+            "persistent": true
         }
     }
 }

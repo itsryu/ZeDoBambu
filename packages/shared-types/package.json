@@ -6,19 +6,19 @@
   "types": "./dist/index.d.ts",
   "scripts": {
     "build": "tsc -p tsconfig.json",
-    "clean": "rm -rf dist",
+    "clean": "rimraf dist .turbo node_modules",
     "dev": "tsc -p tsconfig.json --watch",
-    "typecheck": "tsc --noEmit -p tsconfig.json"
+    "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
-    "typescript": "^5.5.2",
     "@types/node": "^20.14.9",
+    "typescript": "^5.5.2",
     "@zedobambu/tsconfig-base": "workspace:*"
   },
   "exports": {
     ".": {
-      "require": "./dist/index.js",
       "import": "./dist/index.js",
+      "require": "./dist/index.js",
       "types": "./dist/index.d.ts"
     }
   }

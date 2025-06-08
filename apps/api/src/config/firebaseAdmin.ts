@@ -1,6 +1,6 @@
 import * as admin from 'firebase-admin';
 import config from './index';
-import { Logger } from '@/utils/logger';
+import { Logger } from '../utils/logger';
 
 const serviceAccount = {
   projectId: config.firebaseProjectId,

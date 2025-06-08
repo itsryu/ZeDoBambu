@@ -1,76 +1,62 @@
 import { IProduct } from '@zedobambu/shared-types';
-import { useEffect, useState } from 'react';
 import apiClient from '@/lib/axios';
+import { useQuery } from '@tanstack/react-query';
+import { AlertTriangle, ChefHat } from 'lucide-react';
 
-
-const mockProducts: IProduct[] = [
-  { id: '1', name: 'Galinha Caipira', description: 'Deliciosa galinha caipira ao molho pardo.', price: 55.90, category: { id: 'cat1', name: 'Pratos Principais' }, availability: true, createdAt: new Date(), updatedAt: new Date() },
-  { id: '2', name: 'Feijoada Completa', description: 'Tradicional feijoada com todos os acompanhamentos.', price: 79.90, category: { id: 'cat1', name: 'Pratos Principais' }, availability: true, createdAt: new Date(), updatedAt: new Date() },
-  { id: '3', name: 'Suco de Laranja Natural', description: '300ml de puro suco de laranja.', price: 8.00, category: { id: 'cat2', name: 'Bebidas' }, availability: true, createdAt: new Date(), updatedAt: new Date() },
-];
+const fetchProducts = async (): Promise<IProduct[]> => {
+  const response = await apiClient.get('/v1/products');
+  return response.data.data;
+};
 
 const MenuPage: React.FC = () => {
-  const [products, setProducts] = useState<IProduct[]>(mockProducts);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const { data: products, isLoading, isError, error } = useQuery<IProduct[], Error>({
+    queryKey: ['products'],
+    queryFn: fetchProducts,
+  });
 
-  // Exemplo de como seria o fetch com useEffect e apiClient (idealmente com react-query)
-  // useEffect(() => {
-  //   const fetchProducts = async () => {
-  //     setLoading(true);
-  //     setError(null);
-  //     try {
-  //       const response = await apiClient.get<{ data: IProduct[] }>('/api/v1/products'); // Ajuste o endpoint
-  //       setProducts(response.data.data);
-  //     } catch (err) {
-  //       setError('Falha ao carregar o cardápio.');
-  //       console.error(err);
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   };
-  //   fetchProducts();
-  // }, []);
+  if (isLoading) {
+    return (
+      <div className="text-center py-10">
+        <ChefHat className="mx-auto h-12 w-12 animate-spin text-orange-500" />
+        <p className="mt-4 text-lg text-gray-600">Carregando nosso delicioso cardápio...</p>
+      </div>
+    );
+  }
 
-  if (loading) return <p className="text-center">Carregando cardápio...</p>;
-  if (error) return <p className="text-center text-red-500">{error}</p>;
+  if (isError) {
+    return (
+      <div className="text-center py-10 bg-red-50 p-6 rounded-lg">
+        <AlertTriangle className="mx-auto h-12 w-12 text-red-500" />
+        <h2 className="mt-4 text-xl font-semibold text-red-800">Oops! Algo deu errado.</h2>
+        <p className="mt-2 text-red-600">Não foi possível carregar o cardápio. Erro: {error.message}</p>
+      </div>
+    );
+  }
 
   return (
     <div>
       <h1 className="text-3xl font-bold text-center mb-8 text-orange-700">Nosso Cardápio</h1>
-      {products.length === 0 && !loading && (
+      {products?.length === 0 ? (
         <p className="text-center text-gray-500">Nenhum item disponível no momento.</p>
-      )}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {products.map((product) => (
-          <div key={product.id} className="bg-white rounded-lg shadow-lg overflow-hidden transform transition-all hover:scale-105">
-            {product.imageUrl && (
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {products?.map((product) => (
+            <div key={product.id} className="bg-white rounded-lg shadow-lg overflow-hidden transform transition-all hover:scale-105">
               <img src={product.imageUrl} alt={product.name} className="w-full h-48 object-cover" />
-            )}
-            {!product.imageUrl && (
-              <div className="w-full h-48 bg-gray-200 flex items-center justify-center">
-                <span className="text-gray-400">Imagem Indisponível</span>
+              <div className="p-4">
+                <h2 className="text-xl font-semibold text-orange-700">{product.name}</h2>
+                <p className="text-gray-600 mt-2">{product.description}</p>
+                <p className="text-lg font-bold text-orange-600 mt-4">R$ {product.price.toFixed(2)}</p>
               </div>
-            )}
-            <div className="p-4">
-              <h2 className="text-xl font-semibold text-gray-800 mb-2">{product.name}</h2>
-              <p className="text-gray-600 text-sm mb-3">{product.description}</p>
-              <div className="flex justify-between items-center">
-                <p className="text-lg font-bold text-orange-600">
-                  R$ {product.price.toFixed(2).replace('.', ',')}
-                </p>
-                {product.availability ? (
-                  <button className="bg-green-500 hover:bg-green-600 text-white text-sm py-1 px-3 rounded-full">
-                    Adicionar
-                  </button>
-                ) : (
-                  <span className="text-sm text-red-500">Indisponível</span>
-                )}
+              <div className="p-4 bg-gray-100">
+                <button className="w-full bg-orange-500 text-white py-2 rounded hover:bg-orange-600 transition-colors">
+                  Adicionar ao Carrinho
+                </button>
               </div>
             </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

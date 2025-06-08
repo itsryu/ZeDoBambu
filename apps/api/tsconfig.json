@@ -6,14 +6,11 @@
     "paths": {
       "@/*": ["*"]
     },
-    "module": "node16",
-    "moduleResolution": "node16",
+    "module": "ESNext",
+    "moduleResolution": "node",
     "noEmit": false,
-    "types": ["node", "express"]
-    // esModuleInterop: true,
-    // forceConsistentCasingInFileNames: true,
-    // strict: true
+    "types": ["node"]
   },
-  "include": ["src/**/*.ts", "src/**/*.json", "enviroment.d.ts"],
+  "include": ["src/**/*.ts", "enviroment.d.ts"],
   "exclude": ["node_modules", "dist"]
 }

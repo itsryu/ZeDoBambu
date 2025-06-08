@@ -20,10 +20,7 @@ const RegisterPage: React.FC = () => {
     setFormError(null);
     try {
       await signUp(email, password);
-      // O redirecionamento será tratado pelo AuthContext/onAuthStateChanged
-      // navigate('/'); // Ou para uma página de boas-vindas, etc.
     } catch (err) {
-      // Erro já é tratado no AuthContext, mas pode adicionar lógica específica aqui
       console.error('Registration failed on page:', err);
     }
   };

@@ -26,8 +26,8 @@ class Logger {
     private static log(level: LogLevelStrings, message: string, meta?: string): void {
         const formattedMessage = Logger.formatMessage(level, message, meta);
         const outputMethod = level === 'ERROR' ? console.error :
-                           level === 'WARN' ? console.warn :
-                           console.log;
+            level === 'WARN' ? console.warn :
+                console.log;
         outputMethod(formattedMessage);
     }
 

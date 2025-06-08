@@ -1,5 +1,5 @@
 import { initializeApp, FirebaseApp } from 'firebase/app';
-import { getAuth, Auth } from 'firebase/auth';
+import { getAuth, Auth, GoogleAuthProvider } from 'firebase/auth';
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
@@ -8,25 +8,27 @@ const firebaseConfig = {
   storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
   messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
   appId: import.meta.env.VITE_FIREBASE_APP_ID,
-  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID
 };
+
+Object.entries(firebaseConfig).forEach(([key, value]) => {
+  if (!value) {
+    const errorMessage = `Firebase configuration error: The environment variable for '${key}' is missing or empty in your .env.local file.`;
+    console.error(errorMessage);
+    throw new Error(errorMessage);
+  }
+});
 
 let app: FirebaseApp;
 let auth: Auth;
-let db: Firestore;
+const googleProvider = new GoogleAuthProvider();
 
 try {
   app = initializeApp(firebaseConfig);
   auth = getAuth(app);
-  db = getFirestore(app); 
   console.log('Firebase initialized successfully');
 } catch (error) {
-  console.error('Error initializing Firebase:', error);
-  // Trate o erro de inicialização conforme necessário
-  // Você pode querer exibir uma mensagem para o usuário ou tentar novamente.
-  // Para este exemplo, vamos relançar para que seja visível no console.
+  console.error("Error during Firebase initialization.", error);
   throw error;
 }
 
-
-export { app, auth, db  };
+export { app, auth, googleProvider };

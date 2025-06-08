@@ -1,8 +1,8 @@
 import { Request, Response, NextFunction } from 'express';
 import { ZodError } from 'zod';
-import { ApiResponse } from '@/utils/apiResponse';
+import { ApiResponse } from '@/utils/apiResponse'
 import { HttpStatus } from '@zedobambu/shared-types';
-import { Logger } from '@/utils/logger';
+import { Logger } from '@/utils/logger'
 
 interface IHttpError extends Error {
   status?: number;

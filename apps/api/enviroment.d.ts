@@ -7,13 +7,13 @@ declare global {
             readonly NODE_ENV?: 'development' | 'production';
             readonly LOCAL_URL?: string;
             readonly DOMAIN_URL?: string;
-            readonly JWT_SECRET: string; // Pode ser removido se usar apenas Firebase Auth
-            readonly JWT_EXPIRES_IN: string; // Pode ser removido
+            readonly JWT_SECRET: string;
+            readonly JWT_EXPIRES_IN: string; 
 
-            // Firebase Admin SDK (para service account)
+            // Firebase Admin SDK
             readonly FIREBASE_PROJECT_ID: string;
             readonly FIREBASE_CLIENT_EMAIL: string;
-            readonly FIREBASE_PRIVATE_KEY: string; // Deve ser a chave formatada corretamente (com \n)
+            readonly FIREBASE_PRIVATE_KEY: string; 
         }
     }
 }

@@ -1,20 +1,19 @@
-// /zedobambu-monorepo/apps/client/src/App.tsx
-// Adicione as rotas de Login e Registro
 import { Routes, Route, Link, Navigate } from 'react-router-dom';
 import HomePage from '@/features/home/HomePage';
 import MenuPage from '@/features/menu/MenuPage';
+import AdminDashboardPage from '@/features/admin/AdminDashboardPage';
+import ProfilePage from '@/features/profile/ProfilePage';
 import { Layout } from '@/components/layout/Layout';
 import { NotFoundPage } from '@/pages/NotFoundPage';
-import LoginPage from '@/pages/LoginPage'; // ADICIONADO
-import RegisterPage from '@/pages/RegisterPage'; // ADICIONADO
-import { useAuth } from './contexts/authContexts'; // ADICIONADO
+import LoginPage from '@/pages/LoginPage';
+import RegisterPage from '@/pages/RegisterPage';
+import { useAuth } from './contexts/AuthContext';
 
-// Componente para rotas protegidas
 const ProtectedRoute: React.FC<{ children: JSX.Element; adminOnly?: boolean }> = ({ children, adminOnly }) => {
   const { currentUser, loading } = useAuth();
 
   if (loading) {
-    return <div>Carregando autenticação...</div>; // Ou um spinner/skeleton
+    return <div>Carregando...</div>;
   }
 
   if (!currentUser) {
@@ -22,15 +21,14 @@ const ProtectedRoute: React.FC<{ children: JSX.Element; adminOnly?: boolean }> =
   }
 
   if (adminOnly && currentUser.role !== 'admin') {
-    return <Navigate to="/" replace />; // Ou para uma página de acesso negado
+    return <Navigate to="/" replace />;
   }
 
   return children;
 };
 
-
 function App() {
-  const { currentUser } = useAuth(); // ADICIONADO
+  const { currentUser } = useAuth();
 
   return (
     <Layout>
@@ -40,12 +38,11 @@ function App() {
         <Route path="/login" element={currentUser ? <Navigate to="/" /> : <LoginPage />} />
         <Route path="/cadastro" element={currentUser ? <Navigate to="/" /> : <RegisterPage />} />
 
-        {/* Exemplo de rota protegida para cliente */}
+        {/* ROTA DO PERFIL */}
         <Route path="/meu-perfil" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
 
-        {/* Exemplo de rota protegida para admin (supondo que /admin seja parte desta app) */}
-        {/* Se /admin for uma app separada, o redirecionamento será diferente */}
-        <Route path="/admin/dashboard-interno" element={
+        {/* ROTA DO PAINEL ADMIN */}
+        <Route path="/admin/dashboard" element={
           <ProtectedRoute adminOnly={true}><AdminDashboardPage /></ProtectedRoute>
         }/>
 
@@ -54,13 +51,5 @@ function App() {
     </Layout>
   );
 }
-
-// Componentes de exemplo para rotas protegidas (crie-os)
-const ProfilePage: React.FC = () => {
-  const { currentUser } = useAuth();
-  return <div><h1>Meu Perfil</h1><p>Bem-vindo, {currentUser?.name || currentUser?.email}!</p></div>;
-};
-const AdminDashboardPage: React.FC = () => <div><h1>Painel Admin Interno</h1><p>Configurações avançadas.</p></div>;
-
 
 export default App;

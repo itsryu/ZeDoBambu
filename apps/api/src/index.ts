@@ -1,5 +1,5 @@
 import 'dotenv/config';
-import '@/config/firebaseAdmin';
+import './config/firebaseAdmin';
 import App from './app';
 import { Logger } from './utils/logger';
 

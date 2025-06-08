@@ -1,18 +1,16 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { Utensils, LogIn, LogOut, UserCircle } from 'lucide-react';
-import { useAuth } from '@/contexts/authContexts'; // ADICIONADO
+import { useAuth } from '@/contexts/AuthContext';
 
 export const Navbar: React.FC = () => {
-  const { currentUser, signOut, isAuthenticating } = useAuth(); // ADICIONADO
+  const { currentUser, signOut, isAuthenticating } = useAuth();
   const navigate = useNavigate();
 
   const handleSignOut = async () => {
     try {
       await signOut();
-      // Redirecionamento já é feito no AuthContext
     } catch (error) {
       console.error("Failed to sign out from Navbar:", error);
-      // Tratar erro aqui se necessário
     }
   };
 
@@ -26,7 +24,7 @@ export const Navbar: React.FC = () => {
         <div className="space-x-4 flex items-center">
           <Link to="/" className="hover:text-orange-200 transition-colors">Início</Link>
           <Link to="/cardapio" className="hover:text-orange-200 transition-colors">Cardápio</Link>
-          
+
           {currentUser ? (
             <>
               <Link to="/meu-perfil" className="flex items-center hover:text-orange-200 transition-colors">
@@ -34,12 +32,7 @@ export const Navbar: React.FC = () => {
                 Perfil
               </Link>
               {currentUser.role === 'admin' && (
-                // Se o admin for uma app separada, este link será um <a> normal
-                // ou um botão que redireciona para a URL do admin app.
-                // Exemplo para rota interna:
-                <Link to="/admin/dashboard-interno" className="hover:text-orange-200 transition-colors">Painel Admin</Link>
-                // Exemplo para app externa:
-                // <a href={import.meta.env.VITE_ADMIN_APP_URL || '/admin-app'} target="_blank" rel="noopener noreferrer" className="hover:text-orange-200 transition-colors">Painel Admin</a>
+                <Link to="/admin/dashboard" className="hover:text-orange-200 transition-colors">Painel Admin</Link>
               )}
               <button
                 onClick={handleSignOut}

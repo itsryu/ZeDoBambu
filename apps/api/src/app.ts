@@ -1,13 +1,13 @@
-import express, { Express } from 'express';
+import express from 'express';
 import cors from 'cors';
-import config from './config';
+import config from './config/index';
 import { Logger } from './utils/logger';
 import { errorHandlerMiddleware } from './core/middlewares/errorHandler.middleware';
 import { notFoundMiddleware } from './core/middlewares/notFound.middleware';
-import mainRouter from './modules';
+import mainRouter from './modules/index';
 
 class App {
-  public express: Express;
+  public express: express.Express;
 
   constructor() {
     this.express = express();
