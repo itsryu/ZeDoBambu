@@ -3,10 +3,11 @@
   "private": true,
   "version": "0.1.0",
   "main": "dist/index.js",
+  "type": "module",
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
-    "clean": "rimraf dist .turbo node_modules",
-    "dev": "ts-node-dev -r tsconfig-paths/register --respawn --transpile-only --exit-child src/index.ts",
+    "clean": "rimraf dist .turbo tsconfig.tsbuildinfo",
+    "dev": "ts-node-dev --esm -r tsconfig-paths/register --respawn --transpile-only --exit-child src/index.ts",
     "start": "node -r tsconfig-paths/register dist/index.js",
     "lint": "eslint . --config ../../packages/eslint-config-custom/index.js",
     "lint:fix": "eslint . --fix --config ../../packages/eslint-config-custom/index.js",
