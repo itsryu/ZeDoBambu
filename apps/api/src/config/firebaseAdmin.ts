@@ -8,7 +8,7 @@ const serviceAccount = {
   privateKey: config.firebasePrivateKey.replace(/\\n/g, '\n'),
 };
 
-if (!admin.apps.length) {
+if (admin.apps && !admin.apps.length) {
   try {
     admin.initializeApp({
       credential: admin.credential.cert(serviceAccount),

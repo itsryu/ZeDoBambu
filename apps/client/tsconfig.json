@@ -3,13 +3,17 @@
   "compilerOptions": {
     "useDefineForClassFields": true,
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "module": "esnext",
+    "target": "es2020",
     "jsx": "react-jsx",
     "noEmit": true,
     "isolatedModules": true,
+    "esModuleInterop": true,
     "paths": {
       "@/*": ["./src/*"]
     },
-    "types": ["vite/client"]
+    "types": ["vite/client"],
+    "moduleResolution": "node"
   },
   "include": ["src"],
   "references": [
