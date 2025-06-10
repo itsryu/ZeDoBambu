@@ -10,7 +10,7 @@ const authController = new AuthController();
 // e potencialmente obter um token de sessão do backend ou dados de perfil.
 authRouter.post('/verify-token', authController.verifyTokenAndSyncUser);
 
-// Exemplo de rota protegida que usa o req.currentUser
+// Exemplo de rota protegida
 authRouter.get('/me', isAuthenticated, authController.getCurrentUser);
 
 export { authRouter };

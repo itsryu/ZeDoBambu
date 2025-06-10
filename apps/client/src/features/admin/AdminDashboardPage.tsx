@@ -43,7 +43,7 @@ const AdminDashboardPage: React.FC = () => {
       <aside className="w-64 bg-white p-4 flex-shrink-0 border-r flex flex-col">
         <div>
           <div className="mb-8">
-            <h2 className="text-lg font-bold text-gray-800">Painel Admin</h2>
+            <h2 className="text-lg font-bold text-gray-800">Painel Administrativo</h2>
             <p className="text-sm text-gray-500">Bem-vindo, {currentUser?.name}</p>
           </div>
           <nav className="space-y-2">

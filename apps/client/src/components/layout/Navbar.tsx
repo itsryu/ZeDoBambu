@@ -32,7 +32,7 @@ export const Navbar: React.FC = () => {
                 Perfil
               </Link>
               {currentUser.role === 'admin' && (
-                <Link to="/admin/dashboard" className="hover:text-orange-200 transition-colors">Painel Admin</Link>
+                <Link to="/admin/dashboard" className="hover:text-orange-200 transition-colors">Painel</Link>
               )}
               <button
                 onClick={handleSignOut}

@@ -83,7 +83,19 @@ const UserManagement: React.FC = () => {
       await queryClient.cancelQueries({ queryKey: ['users'] });
       const previousUsers = queryClient.getQueryData<IUser[]>(['users', debouncedSearchTerm]);
       queryClient.setQueryData<IUser[]>(['users', debouncedSearchTerm], old =>
-        old?.map(user => user.id === newData.id ? { ...user, ...newData.data } : user) ?? []
+        old?.map(user => user.id === newData.id ? { 
+          ...user, 
+          ...newData.data, 
+          address: {
+            street: (newData.data.address?.street ?? user.address?.street) ?? '',
+            number: (newData.data.address?.number ?? user.address?.number) ?? '',
+            complement: (newData.data.address?.complement ?? user.address?.complement) ?? '',
+            neighborhood: (newData.data.address?.neighborhood ?? user.address?.neighborhood) ?? '',
+            city: (newData.data.address?.city ?? user.address?.city) ?? '',
+            state: (newData.data.address?.state ?? user.address?.state) ?? '',
+            zip: (newData.data.address?.zip ?? user.address?.zip) ?? '',
+          }
+        } : user) ?? []
       );
       setIsEditModalOpen(false);
       return { previousUsers };
@@ -104,8 +116,8 @@ const UserManagement: React.FC = () => {
 
   const deleteMutation = useMutation({
     mutationFn: deleteUser,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['users'] });
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: ['users'] });
       setIsDeleteModalOpen(false);
       showNotification('success', 'Utilizador apagado com sucesso!');
     },

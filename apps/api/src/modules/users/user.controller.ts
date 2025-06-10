@@ -35,6 +35,7 @@ export class UserController {
     }
 
     const updatedUser = await this.service.updateProfile(uid, validationResult.data as IUpdateUserProfileDto);
+
     if (!updatedUser) {
       return ApiResponse.notFound(res, 'Perfil do usuário não encontrado para atualizar.');
     }
@@ -44,9 +45,11 @@ export class UserController {
   adminUpdate = async (req: Request, res: Response): Promise<Response> => {
     const { id } = req.params;
     const validationResult = adminUpdateUserSchema.safeParse(req.body);
+
     if (!validationResult.success) {
       return ApiResponse.badRequest(res, 'Dados inválidos.', JSON.stringify(validationResult.error.flatten()));
     }
+
     const updatedUser = await this.service.adminUpdateUser(id, validationResult.data);
     return ApiResponse.success(res, 'Utilizador atualizado com sucesso.', updatedUser);
   }

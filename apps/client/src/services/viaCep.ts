@@ -23,9 +23,9 @@ export const fetchAddressByCep = async (cep: string): Promise<Pick<ViaCepRespons
 
   try {
     const { data } = await axios.get<ViaCepResponse>(`https://viacep.com.br/ws/${cleanedCep}/json/`);
-    if (data.erro) {
-      return null;
-    }
+
+    if (data.erro) return null;
+
     return {
       logradouro: data.logradouro,
       bairro: data.bairro,
@@ -33,7 +33,6 @@ export const fetchAddressByCep = async (cep: string): Promise<Pick<ViaCepRespons
       uf: data.uf,
     };
   } catch (error) {
-    console.error("Erro ao buscar CEP:", error);
     return null;
   }
 };
