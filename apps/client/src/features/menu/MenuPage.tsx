@@ -1,7 +1,9 @@
 import type { IProduct } from '@zedobambu/shared-types';
 import apiClient from '@/lib/axios';
 import { useQuery } from '@tanstack/react-query';
-import { AlertTriangle, ChefHat } from 'lucide-react';
+import { AlertTriangle, Check, ChefHat, ShoppingCart } from 'lucide-react';
+import { useCart } from '@/contexts/CartContext';
+import { useState } from 'react';
 
 const fetchProducts = async (): Promise<IProduct[]> => {
   const response = await apiClient.get('/v1/products');
@@ -13,6 +15,17 @@ const MenuPage: React.FC = () => {
     queryKey: ['products'],
     queryFn: fetchProducts,
   });
+  const { addToCart } = useCart();
+  const [addedProductId, setAddedProductId] = useState<string | null>(null);
+
+  const handleAddToCart = (product: IProduct) => {
+    addToCart(product);
+    setAddedProductId(product.id);
+    setTimeout(() => {
+      setAddedProductId(null);
+    }, 1500);
+  };
+
 
   if (isLoading) {
     return (
@@ -46,12 +59,27 @@ const MenuPage: React.FC = () => {
               <div className="p-4">
                 <h2 className="text-xl font-semibold text-orange-700">{product.name}</h2>
                 <p className="text-gray-600 mt-2">{product.description}</p>
-                <p className="text-lg font-bold text-orange-600 mt-4">R$ {product.price.toFixed(2)}</p>
               </div>
-              <div className="p-4 bg-gray-100">
-                <button className="w-full bg-orange-500 text-white py-2 rounded hover:bg-orange-600 transition-colors">
-                  Adicionar ao Carrinho
-                </button>
+              <div className="p-4 mt-auto">
+                 <div className="flex justify-between items-center">
+                    <p className="text-xl font-bold text-gray-800">R$ {product.price.toFixed(2).replace('.', ',')}</p>
+                    <button
+                      onClick={() => handleAddToCart(product)}
+                      disabled={!product.availability || !!addedProductId}
+                      className={`inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white transition-colors duration-300 ${
+                        addedProductId === product.id
+                          ? 'bg-green-500'
+                          : 'bg-orange-600 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500'
+                      } disabled:bg-gray-400 disabled:cursor-not-allowed`}
+                    >
+                      {addedProductId === product.id ? (
+                        <Check className="w-5 h-5 mr-2" />
+                      ) : (
+                        <ShoppingCart className="w-5 h-5 mr-2" />
+                      )}
+                      {addedProductId === product.id ? 'Adicionado!' : 'Adicionar'}
+                    </button>
+                 </div>
               </div>
             </div>
           ))}

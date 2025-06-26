@@ -1,10 +1,11 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { Utensils, LogIn, LogOut, UserCircle } from 'lucide-react';
+import { Utensils, LogIn, LogOut, UserCircle, ShoppingCart } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
+import { useCart } from '@/contexts/CartContext'
 
 export const Navbar: React.FC = () => {
   const { currentUser, signOut, isAuthenticating } = useAuth();
-  const navigate = useNavigate();
+  const { itemCount, openCart } = useCart();
 
   const handleSignOut = async () => {
     try {
@@ -24,6 +25,7 @@ export const Navbar: React.FC = () => {
         <div className="space-x-4 flex items-center">
           <Link to="/" className="hover:text-orange-200 transition-colors">Início</Link>
           <Link to="/cardapio" className="hover:text-orange-200 transition-colors">Cardápio</Link>
+          <Link to="/info" className="hover:text-orange-200 transition-colors">Sobre Nós</Link>
 
           {currentUser ? (
             <>
@@ -34,6 +36,17 @@ export const Navbar: React.FC = () => {
               {currentUser.role === 'admin' && (
                 <Link to="/admin/dashboard" className="hover:text-orange-200 transition-colors">Painel</Link>
               )}
+              
+              {/* Botão do Carrinho */}
+              <button onClick={openCart} className="relative p-2 rounded-full hover:bg-orange-500 transition-colors">
+                <ShoppingCart />
+                {itemCount > 0 && (
+                  <span className="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-xs font-bold text-white">
+                    {itemCount}
+                  </span>
+                )}
+              </button>
+
               <button
                 onClick={handleSignOut}
                 disabled={isAuthenticating}

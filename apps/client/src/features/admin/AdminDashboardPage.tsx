@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { User, ShoppingBag, LayoutDashboard, Utensils } from 'lucide-react';
+import { User, ShoppingBag, LayoutDashboard, Utensils, Building2 } from 'lucide-react';
 import ProductManagement from './ProductManagement';
 import UserManagement from './UserManagement';
 import { useAuth } from '@/contexts/AuthContext';
+import RestaurantManagement from './RestaurantManagement';
 
-type Tab = 'dashboard' | 'products' | 'users' | 'orders';
+type Tab = 'dashboard' | 'products' | 'users' | 'orders' | 'restaurant';
 
 const AdminDashboardPage: React.FC = () => {
   const [activeTab, setActiveTab] = useState<Tab>('dashboard');
@@ -18,6 +19,8 @@ const AdminDashboardPage: React.FC = () => {
         return <ProductManagement />;
       case 'users':
         return <UserManagement />;
+      case 'restaurant':
+        return <RestaurantManagement />;
       case 'orders':
         return <div><h1 className="text-2xl font-bold text-gray-800">Pedidos</h1><p className="mt-2 text-gray-600">Em breve: uma lista de todos os pedidos recebidos.</p></div>;
       default:
@@ -51,6 +54,7 @@ const AdminDashboardPage: React.FC = () => {
             <TabButton tab="products" icon={ShoppingBag} label="Gerir Produtos" />
             <TabButton tab="users" icon={User} label="Gerir Utilizadores" />
             <TabButton tab="orders" icon={Utensils} label="Ver Pedidos" />
+            <TabButton tab="restaurant" icon={Building2} label="Gerir Restaurante" />
           </nav>
         </div>
       </aside>

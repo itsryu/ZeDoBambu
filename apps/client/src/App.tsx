@@ -8,6 +8,7 @@ import { NotFoundPage } from '@/pages/NotFoundPage';
 import LoginPage from '@/pages/LoginPage';
 import RegisterPage from '@/pages/RegisterPage';
 import { useAuth } from './contexts/AuthContext';
+import InfoPage from './features/info/InfoPage';
 
 const ProtectedRoute: React.FC<{ children: JSX.Element; adminOnly?: boolean }> = ({ children, adminOnly }) => {
   const { currentUser, loading } = useAuth();
@@ -35,6 +36,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/cardapio" element={<MenuPage />} />
+        <Route path="/info" element={<InfoPage />} />
         <Route path="/login" element={currentUser ? <Navigate to="/" /> : <LoginPage />} />
         <Route path="/cadastro" element={currentUser ? <Navigate to="/" /> : <RegisterPage />} />
 
