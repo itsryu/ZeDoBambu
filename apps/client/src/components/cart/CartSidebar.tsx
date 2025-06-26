@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { X, ShoppingCart, Minus, Plus, Trash2 } from 'lucide-react';
 import { useCart } from '@/contexts/CartContext';
+import { Link } from 'react-router-dom';
 
 export const CartSidebar: React.FC = () => {
   const { isCartOpen, closeCart, cartItems, cartTotal, updateQuantity, removeFromCart } = useCart();
@@ -32,12 +33,38 @@ export const CartSidebar: React.FC = () => {
                       <div className="mt-8">
                         <div className="flow-root">
                           {cartItems.length === 0 ? (
-                            <p className="text-center text-gray-500">O seu carrinho está vazio.</p>
+                            <div className="text-center py-10">
+                              <ShoppingCart className="mx-auto h-12 w-12 text-gray-400" />
+                              <p className="mt-4 text-gray-500">O seu carrinho está vazio.</p>
+                              <button onClick={closeCart} className="mt-6 text-orange-600 hover:text-orange-500 font-semibold">Continuar a comprar</button>
+                            </div>
                           ) : (
                             <ul role="list" className="-my-6 divide-y divide-gray-200">
                               {cartItems.map((item) => (
                                 <li key={item.id} className="flex py-6">
-                                  {/* ... (código para renderizar cada item do carrinho) ... */}
+                                  <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
+                                    <img src={item.imageUrl || `https://ui-avatars.com/api/?name=${item.name}&background=random`} alt={item.name} className="h-full w-full object-cover object-center" />
+                                  </div>
+                                  <div className="ml-4 flex flex-1 flex-col">
+                                    <div>
+                                      <div className="flex justify-between text-base font-medium text-gray-900">
+                                        <h3><Link to={`/product/${item.id}`}>{item.name}</Link></h3>
+                                        <p className="ml-4">R$ {item.price.toFixed(2).replace('.', ',')}</p>
+                                      </div>
+                                    </div>
+                                    <div className="flex flex-1 items-end justify-between text-sm">
+                                      <div className="flex items-center border border-gray-200 rounded">
+                                        <button onClick={() => updateQuantity(item.id, item.quantity - 1)} className="px-2 py-1 text-gray-500 hover:text-gray-700"><Minus className="h-4 w-4" /></button>
+                                        <p className="px-3 text-gray-900">{item.quantity}</p>
+                                        <button onClick={() => updateQuantity(item.id, item.quantity + 1)} className="px-2 py-1 text-gray-500 hover:text-gray-700"><Plus className="h-4 w-4" /></button>
+                                      </div>
+                                      <div className="flex">
+                                        <button onClick={() => removeFromCart(item.id)} type="button" className="font-medium text-red-600 hover:text-red-500 flex items-center">
+                                          <Trash2 className="h-4 w-4 mr-1" /> Remover
+                                        </button>
+                                      </div>
+                                    </div>
+                                  </div>
                                 </li>
                               ))}
                             </ul>
@@ -57,6 +84,9 @@ export const CartSidebar: React.FC = () => {
                           <a href="#" className="flex items-center justify-center rounded-md border border-transparent bg-orange-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-orange-700">
                             Finalizar Compra
                           </a>
+                        </div>
+                        <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
+                          <p>ou <button type="button" className="font-medium text-orange-600 hover:text-orange-500" onClick={closeCart}>Continuar a Comprar<span aria-hidden="true"> &rarr;</span></button></p>
                         </div>
                       </div>
                     )}

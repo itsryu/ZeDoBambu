@@ -4,6 +4,8 @@ import { useQuery } from '@tanstack/react-query';
 import { AlertTriangle, Check, ChefHat, ShoppingCart } from 'lucide-react';
 import { useCart } from '@/contexts/CartContext';
 import { useState } from 'react';
+import { useAuth } from '@/contexts/AuthContext';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const fetchProducts = async (): Promise<IProduct[]> => {
   const response = await apiClient.get('/v1/products');
@@ -15,10 +17,18 @@ const MenuPage: React.FC = () => {
     queryKey: ['products'],
     queryFn: fetchProducts,
   });
+  const { currentUser } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
   const { addToCart } = useCart();
   const [addedProductId, setAddedProductId] = useState<string | null>(null);
 
   const handleAddToCart = (product: IProduct) => {
+    if (!currentUser) {
+      navigate('/login', { state: { from: location } });
+      return;
+    }
+
     addToCart(product);
     setAddedProductId(product.id);
     setTimeout(() => {
